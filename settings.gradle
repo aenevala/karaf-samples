@@ -1,0 +1,3 @@
+rootProject.name = 'karaf-samples'
+include 'rest-ds'
+

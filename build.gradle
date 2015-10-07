@@ -1,0 +1,44 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:3.0.0'
+        classpath 'com.github.lburgazzoli:gradle-karaf-features-plugin:2.0.3'
+
+    }
+}
+
+allprojects {
+    group 'com.github.aenevala.karaf'
+    version '0.0.1-SNAPSHOT'
+}
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'biz.aQute.bnd.builder'
+    apply plugin: 'com.github.lburgazzoli.karaf.features'
+    apply plugin: 'maven-publish'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    publishing {
+        publications {
+            feature( MavenPublication ) {
+                artifact( project.extensions.karafFeatures.featuresXmlFile ) {
+                    classifier 'features'
+                    builtBy generateKarafFeatures
+                }
+            }
+            component( MavenPublication ) {
+                from components.java
+            }
+        }
+    }
+}

@@ -1,0 +1,4 @@
+-dsannotations: *
+Service-Component: *
+
+Import-Package: org.apache.shiro.cache.ehcache, *
